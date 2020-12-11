@@ -8,12 +8,17 @@ export default class Calculator extends Component {
             display: "",
             theTotal: "",
             theValBox: 0,
-            theValBox2: 6
+            theValBox2: 6,
+            togglePad: true
         }
     }
 
+    toggleOpPad = () => {
+        this.setState({togglePad: !this.state.togglePad})
+        console.log(this.state.togglePad)
+    }
+
     handleClick = (props) => {
-        // this.setState({theValBox:+props})
         this.setState({display:this.state.display+props})
         console.log(this.state.theValBox)
     }
@@ -26,16 +31,9 @@ export default class Calculator extends Component {
         this.setState({display:""})
     }
 
-    execute = () => {
-        this.setState({theTotal:+this.state.display})
-        console.log(this.state.theTotal)
-    }
-
     render() {
         return(
             <div>
-            <section className="calc-note">
-                <div className="all-notes">
         <span className="calc-display">{this.state.display}</span>
                     <kbd className="keypad">
                         <a className="btn btn-ghost" href="#" onClick={() => this.handleClick("1")}>1</a>
@@ -45,24 +43,19 @@ export default class Calculator extends Component {
                         <a className="btn btn-ghost"href="#" value="5" onClick={(e) => this.handleClick(e.target.value)}>5</a>
                         <a className="btn btn-ghost"href="#" value="6" onClick={(e) => this.handleClick(e.target.value)}>6</a>
                         <a className="btn btn-ghost" href="#">7</a>
-                        <a className="btn btn-ghost"href="#">8</a>
-                        
+                        <a className="btn btn-ghost"href="#">8</a>                       
                         <a className="btn btn-ghost"href="#">9</a>
                         <a className="btn btn-ghost"href="#">0</a>
-                        <a className="btn btn-ghost"href="#" onClick={() => this.addItem()}>+/-</a>
+                        <a className="btn-hide btn btn-ghost"href="#" onClick={() => this.toggleOpPad()}>+/-</a>
                         <a className="btn btn-ghost"href="#" onClick={() => this.clearDisplay()}>C</a>
-                        {/* <a className="btn btn-ghost"href="#">=</a> */}
-                        {/* <a className="btn btn-ghost"href="#">*</a> */}
-                        {/* <a className="btn btn-ghost"href="#">-</a> */}
-                        {/* <a className="btn btn-ghost"href="#" value="+" onClick={() => this.addItems()} >+</a> */}
-                        {/* <a className="btn btn-ghost"href="#">/</a> */}
-                        {/* <a className="btn btn-ghost"href="#">.</a> */}
-                        {/* 17 items above */}
-
                     </kbd>
-                    <kbd className="keypad"></kbd>
-                </div>
-      </section>
+                    <kbd className={`operator-pad ${this.state.togglePad ? false : 'operator-pad-hide'}`}>
+                        <a className={`btn btn-ghost ${this.state.togglePad ? false : 'operator-pad-hide'}`}href="#" value="+" onClick={() => this.handleClick("+")} >+</a>
+                        <a className={`btn btn-ghost ${this.state.togglePad ? false : 'operator-pad-hide'}`}href="#" value="-" onClick={() => this.handleClick("+")} >-</a>
+                        <a className={`btn btn-ghost ${this.state.togglePad ? false : 'operator-pad-hide'}`}href="#" value="x" onClick={() => this.handleClick("+")} >x</a>
+                        <a className={`btn btn-ghost ${this.state.togglePad ? false : 'operator-pad-hide'}`}href="#" value="/" onClick={() => this.handleClick("+")} >/</a>
+                        <a className={`btn btn-ghost ${this.state.togglePad ? false : 'operator-pad-hide'}`}href="#" onClick={() => this.execute()}>=</a>
+                    </kbd>
             </div>
         )
     }

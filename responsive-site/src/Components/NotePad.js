@@ -52,24 +52,19 @@ class NotePad extends Component {
       return (
         <div>
           {element.text}
-          <button onClick={() => this.deleteItem(element.id)}>delete</button>
-          <button onClick={() => this.editItem(element.id)}>edit</button>
+          <a className="btn-note" onClick={() => this.deleteItem(element.id)}>delete</a>
+          <a className="btn-note" onClick={() => this.editItem(element.id)}>edit</a>
         </div>
       );
     });
     return (
-      <div className="all-notes">
+      <div className="post-it notes">
         <h4>Notes:</h4>
-        {mappedNotebook}
-        <input
-          value={this.state.input}
-          onChange={(e) => this.handleChange(e.target.value)}
-        ></input>
-        <div>
-          <button onClick={() => this.addItem()}>Add</button>
-        </div>
+        <p>{mappedNotebook}</p>
+        <h4></h4>
+        <input type="text" className="input-line" value={this.state.input} onChange={(e) => this.handleChange(e.target.value)} ></input>
+        <a className="btn-note"href="#" value="5" onClick={() => this.addItem()}>ADD NOTE</a>
       </div>
-      // <h4>Hi</h4>
     );
   }
 }
